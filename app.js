@@ -24,7 +24,7 @@ app.engine('.hbs', handlebars.engine);
 app.set('view engine', '.hbs');
 
 const rutesInici = require('./server/routes/inici');
-const rutesComunitat = require('./server/routes/comunitat');
+const rutesBateria = require('./server/routes/bateria');
 const rutesUsuari = require('./server/routes/usuaris');
 const rutesApi = require('./server/routes/api');
 
@@ -57,7 +57,7 @@ app.use('/', rutesInici, function (req, res, next) {
     req.app.locals.layout = 'main_initial';
     next();
 });
-app.use('/comunitat', isAuthenticated, rutesComunitat, function (req, res, next) {
+app.use('/comunitat', isAuthenticated, rutesBateria, function (req, res, next) {
     req.app.locals.layout = 'main';
     next();
 });
@@ -90,14 +90,14 @@ app.post('/auth', function (request, response) {
 
         request.session.regenerate(function (err) {
             if (err) next(err)
-            if (username == 'ProsumWattsharing' && password == '6Yt*iR$rOs09#eNx4q') {
+            if (username == 'admin' && password == 'admin1234') {
                 request.session.user = username;
 
                 // save the session before redirection
                 request.session.save(function (err) {
                     if (err) return next(err)
                     try {
-                        response.redirect('/comunitat');
+                        response.redirect('/bateria');
                     } catch (err) {
                         next('route');
                     }
