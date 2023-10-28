@@ -57,7 +57,7 @@ app.use('/', rutesInici, function (req, res, next) {
     req.app.locals.layout = 'main_initial';
     next();
 });
-app.use('/comunitat', isAuthenticated, rutesBateria, function (req, res, next) {
+app.use('/bateria', isAuthenticated, rutesBateria, function (req, res, next) {
     req.app.locals.layout = 'main';
     next();
 });
@@ -77,17 +77,6 @@ app.post('/auth', function (request, response) {
     let username = request.body.username;
     let password = request.body.password;
     if (username && password) {
-        // //Connexió a Sqlite
-        // let conn = new sqlite3.Database('server/controllers/comunitat.db', sqlite3.OPEN_READWRITE, (err) => {
-        //     if (err) {
-        //         console.error(err.message);
-        //     }
-        //     console.log('Connected to database.');
-        // });
-        // conn.all('SELECT * FROM credencial WHERE nomUsuari = ? AND contrasenya = ?', [username, password], function (error, results, fields) {
-        //     if (error) throw error;
-        //     if (results.length > 0)
-
         request.session.regenerate(function (err) {
             if (err) next(err)
             if (username == 'admin' && password == 'admin1234') {

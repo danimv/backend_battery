@@ -1,0 +1,59 @@
+<div class="row">
+  <div class="col-12">    
+    <h4 style="text-align:center ;color:rgb(9, 120, 231);padding-top: 3%;">BATERIA COMUNITARIA</h4>   
+  </div>
+  <div class="d-grid gap-4 col-12 mx-auto" style="text-align:center ;color:rgb(9, 120, 231);padding-top: 1%;">
+    {{#if mode}}
+    <a style="font-size: 150%;" role="button" class="btn btn-warning" id="workingMode" href="/comunitat/mode">OFFLINE</a>
+    {{else}}
+    <a style="font-size: 150%;" role="button" class="btn btn-success" id="workingMode" href="/comunitat/mode">ONLINE</a>
+    {{/if}}
+    <a style="font-size: 150%;" type="button" role="button" class="btn btn-outline-primary"  href="/comunitat/actualitzacions">Actualitzacions</a>
+    <a style="font-size: 150%;" type="link" role="button" class="btn btn-outline-primary"
+      href="/comunitat/interrupcions">Interrupcions de servei</a>
+    {{!-- <a style="font-size: 150%;" type="link" role="button" class="btn btn-outline-primary"
+      href="/comunitat/config">Configuració</a> --}}
+    <a style="font-size: 150%;" type="button" role="button" class="btn btn-outline-primary">Descàrregues</a>
+    <a style="font-size: 150%;" type="button" role="button" class="btn btn-outline-primary">Instruccions</a>
+  </div>
+</div>
+ <div class="table-responsive">
+    <table id="tableF" class="table table-bordered" style="font-size:medium;">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Id Usuari</th>
+          <th scope="col">Nom</th>
+          <th scope="col">Cognoms</th>
+          <th scope="col">Email</th>
+          <th scope="col">Coeficient</th>
+          <th scope="col">Estat</th>
+          <th scope="col">Vinculat</th>
+          <th scope="col" style="text-align: center;">Accions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each rows2}}
+        <tr>
+          <td scope="row">{{this.idUsuari}}</th>
+          <td>{{this.nom}}</td>
+          <td>{{this.cognoms}}</td>
+          <td>{{this.email}}</td>
+          <td style="text-align: center;"><b>{{this.coeficient}}</b></td>
+          <td>{{this.estat}}</td>
+          <td>{{this.vinculat}}</td>
+          <td style="width: 17%;" class="text-end">
+            <a style="font-size:100%" ; href="/usuaris/viewuser/{{this.idUsuari}}" type="button"
+              class="btn btn-light btn"><i style="font-size: 115%;" class="bi bi-eye 2xs"></i> Info</a>
+            {{!-- {{#if this.cognoms}}--}}
+            {{#if ../mode}}
+            <a style="font-size:100%" ; href="/usuaris/edituser/{{this.idUsuari}}" type="button" --}}
+              class="btn btn-light btn"><i style="font-size: 115%;" class="bi bi-pencil"></i>
+              Edita</a>
+            {{/if}}
+            {{!-- {{/if}} --}}
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>

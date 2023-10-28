@@ -7,23 +7,24 @@ let conn = exportedD.dbConnection();
 
 // Vista comunitat
 exports.view = (req, res) => {
-  checkFileExists(location, function check(error) {
-    if (!error) {
-      crearBd();
-      // Sqlite connexió 
-      conn.all('SELECT * FROM comunitat ORDER BY id DESC LIMIT 1', (err, rows) => {
-        if (!err && rows[0]) {
-          mode = rows[0].mode;
-          res.render('comunitat', { rows, mode });
-        } else {
-          res.render('comunitat');
-          console.log(err);
-        }
-      });
-    } else {
-      res.render('inici');
-    }
-  });
+  res.render('bateria');
+  // checkFileExists(location, function check(error) {
+  //   if (!error) {
+  //     crearBd();
+  //     // Sqlite connexió 
+  //     conn.all('SELECT * FROM comunitat ORDER BY id DESC LIMIT 1', (err, rows) => {
+  //       if (!err && rows[0]) {
+  //         mode = rows[0].mode;
+  //         res.render('bateria', { rows, mode });
+  //       } else {
+  //         res.render('bateria');
+  //         console.log(err);
+  //       }
+  //     });
+  //   } else {
+  //     res.render('bateria');
+  //   }
+  // });
 }
 
 exports.actualitzacions = (req, res) => {

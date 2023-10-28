@@ -1,6 +1,6 @@
 let sqlite3 = require('sqlite3').verbose();//'server/controllers/comunitat.db';//
 const fs = require('fs');
-const exportedC = require('../controllers/comunitatController');
+const exportedC = require('./bateriaController');
 const exportedD = require('../db/dbDriver');
 const location = exportedD.dbLocation();
 let conn = exportedD.dbConnection();

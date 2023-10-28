@@ -1,35 +1,25 @@
 const express = require('express');
 const rutesComunitat = express.Router();
-const comunitatController = require('../controllers/comunitatController');
+const bateriaController = require('../controllers/bateriaController');
 
 // Routes
 rutesComunitat.get('/', function (req, res, next) {
     req.app.locals.layout = 'main';
     next();
-}, comunitatController.view);
-
-// rutesComunitat.get('/config', function (req, res, next) {
-//     req.app.locals.layout = 'main';
-//     next();
-// }, comunitatController.view2);
-
-// rutesComunitat.get('/crear_bd', function (req, res, next) {
-//     req.app.locals.layout = 'main';
-//     next();
-// }, comunitatController.crearBd);
+}, bateriaController.view);
 
 rutesComunitat.get('/mode', function (req, res, next) {   
     next();
-},comunitatController.mode);
+},bateriaController.mode);
 
 rutesComunitat.get('/interrupcions', function (req, res, next) {
     req.app.locals.layout = 'main';
     next();
-}, comunitatController.interrupcions);
+}, bateriaController.interrupcions);
 
 rutesComunitat.get('/actualitzacions', function (req, res, next) {
     req.app.locals.layout = 'main';
     next();
-}, comunitatController.actualitzacions);
+}, bateriaController.actualitzacions);
 
 module.exports = rutesComunitat;
