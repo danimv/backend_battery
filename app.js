@@ -19,14 +19,16 @@ app.use(express.json()); // New
 app.use(express.static(__dirname + '/public'));
 
 // Templating Engine
-const handlebars = exphbs.create({ extname: '.hbs', defaultLayout: 'main_initial.hbs' });
+const handlebars = exphbs.create({ extname: '.hbs', defaultLayout: 'main_initial.hbs', helpers: {
+    calculateValue: function (consumPercent, consumKw) {
+        return Math.round(consumPercent/100*consumKw);
+    }
+} });
 app.engine('.hbs', handlebars.engine);
 app.set('view engine', '.hbs');
 
 const rutesInici = require('./server/routes/inici');
 const rutesBateria = require('./server/routes/bateria');
-const rutesUsuari = require('./server/routes/usuaris');
-const rutesApi = require('./server/routes/api');
 
 app.use(session({
     secret: 'prosum',
@@ -58,14 +60,6 @@ app.use('/', rutesInici, function (req, res, next) {
     next();
 });
 app.use('/bateria', isAuthenticated, rutesBateria, function (req, res, next) {
-    req.app.locals.layout = 'main';
-    next();
-});
-app.use('/usuaris', isAuthenticated, rutesUsuari, function (req, res, next) {
-    req.app.locals.layout = 'main';
-    next();
-});
-app.use('/api', rutesApi, function (req, res, next) {
     req.app.locals.layout = 'main';
     next();
 });
