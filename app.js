@@ -90,7 +90,7 @@ app.post('/auth', function (request, response) {
 
         request.session.regenerate(function (err) {
             if (err) next(err)
-            if (username == 'admin' && password == 'admin1234') {
+            if (username == 'ProsumWattsharing' && password == '6Yt*iR$rOs09#eNx4q') {
                 request.session.user = username;
 
                 // save the session before redirection
