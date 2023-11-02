@@ -1,0 +1,61 @@
+<div class="col-12" style="text-align:center">
+  <h4 style="color:rgb(9, 120, 231);padding-top: 1%;padding-bottom: 1%;"><img src="imatges/battery.png" width="55"
+      height="50" alt="Prosum" ; />CONFIGURACIÓ BATERIA COMUNITÀRIA</h4>
+</div>
+<div>
+  <p id="consumKw" style="font-size:80%"><b>Consum comunitat</b> {{rows.[0].consumKw}}kW <b>
+      Bateria</b>{{rows.[0].bateriaKw}}kW</p>
+</div>
+<div class="table-responsive" >
+  <table id="tableF" class="table table-bordered" style="font-size:90%;">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Hora</th>
+        <th scope="col">% consum</th>
+        <th scope="col">kW consum</th>
+        <th scope="col">Interval</th>
+        <th scope="col">Histeresis</th>
+        <th scope="col">Automatic</th>
+        <th scope="col" style="text-align: center;"></th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each rows}}
+      <tr>
+        <td scope="row">{{this.hora}}:00</th>
+        <td>{{this.consum}}%</td>
+        <td id="kW">{{calculateValue this.consum this.consumKw}}kW</td>
+        <td>{{this.interval}}s</td>
+        <td>{{this.histeresis}}%</td>
+        <td>{{this.automatic}}</td>
+        <td style="text-align: center;">
+          <a href="/usuaris/edituser/" type="button" class="btn btn-light btn"><i class="bi bi-pencil"></i>
+            Edita</a>
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+  <div style="text-align: center;">
+    <a style="font-size:100%" ; href="/usuaris/edituser/" type="button" class="btn btn-light btn"><i
+        style="font-size: 115%;" class="bi bi-plus-circle"></i>
+      Afegeix hora</a>
+  </div>
+  <script>
+    console.log('Script executed!');
+    document.addEventListener('DOMContentLoaded', function () {
+      var rows = document.querySelectorAll('tr');
+      rows.forEach(function (row) {
+        var consumPercent = row.querySelector('td:nth-child(2)').textContent;
+        var consumKw = row.querySelector('#consumKw').textContent;
+        var kWElement = row.querySelector('#kW');
+        var calculatedValue = parseInt(consumPercent) * parseInt(consumKw);
+        kWElement.textContent = calculatedValue + ' kW';
+        console.log('consumPercent:', consumPercent);
+        console.log('consumKw:', consumKw);
+        console.log('kWElement:', kWElement);
+      });
+    });
+  </script>
+
+</div>

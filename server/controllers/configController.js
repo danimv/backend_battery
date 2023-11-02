@@ -6,26 +6,25 @@ const location = exportedD.dbLocation();
 let conn = exportedD.dbConnection();
 
 // Vista comunitat
-exports.view = async (req, res) => {
-  // let value = 0;
+exports.view = (req, res) => {
 
-  // async function updateValue() {
-  //   return new Promise(resolve => {
-  //     setTimeout(() => {
-  //       value++;
-  //       console.log(`Updated value: ${value}`);
-  //       resolve(value);
-  //     }, 2000);
-  //   });
-  // }
-  // setInterval(updateValue, 2000);
-  // try {
-  //   const updatedValue = await updateValue();
-  //   res.render('bateria', { updatedValue });
-  // } catch (error) {
-  //   console.error('Error updating value:', error);   
-  // }
-  res.render('bateria');
+  checkFileExists(location, function check(error) {
+    if (!error) {
+      crearBd();
+      // Sqlite connexió 
+      conn.all('SELECT * FROM curvaHores JOIN bateriaConfig ORDER BY curvaHores.id ASC', (err, rows) => {
+        if (!err && rows[0]) {          
+          res.render('config', {rows});
+        } else {
+          res.render('config');
+          console.log(err);
+        }
+      });
+      
+    } else {
+      res.render('inici');
+    }
+  });
 }
 
 exports.actualitzacions = (req, res) => {
@@ -116,13 +115,13 @@ function checkFileExists(filepath, callback) {
 }
 
 function diff_minutes(dt1, dt2) {
-  dt1c = new Date(dt1.substring(0, 4), (dt1.substring(4, 6) - 1), dt1.substring(6, 8), dt1.substring(8, 10), dt1.substring(10, 12), dt1.substring(12, 14));
+  dt1c = new Date(dt1.substring(0, 4), (dt1.substring(4, 6)-1), dt1.substring(6, 8), dt1.substring(8, 10), dt1.substring(10, 12), dt1.substring(12, 14));
   if (dt2 == null) {
     dt2c = new Date();
     console.log(dt1c);
     console.log(dt2c);
   } else {
-    dt2c = new Date(dt2.substring(0, 4), (dt2.substring(4, 6) - 1), dt2.substring(6, 8), dt2.substring(8, 10), dt2.substring(10, 12), dt2.substring(12, 14));
+    dt2c = new Date(dt2.substring(0, 4), (dt2.substring(4, 6)-1), dt2.substring(6, 8), dt2.substring(8, 10), dt2.substring(10, 12), dt2.substring(12, 14));
   }
   var diff = (dt2c - dt1c) / 60000;
   return Math.abs(Math.round(diff));
