@@ -2,32 +2,30 @@
   <h4 style="color:rgb(9, 120, 231);padding-top: 1%;padding-bottom: 1%;"><img src="imatges/battery.png" width="55"
       height="50" alt="Prosum" ; />CONTROL BATERIA COMUNITÀRIA</h4>
 </div>
-<div>
-  <p id="text"></p>
+<div style="display: flex;
+    align-items: center; margin-left:3%">
+  <div class="led" id="led" style="width: 25px;
+            height: 25px;
+            background-color: red;
+            border-radius: 50%;display: inline-block;"></div>
+  <p id="text" style="margin-left:3%; margin-top:1%;display: inline-block;"></p>
 </div>
 
 <script>
-  //async function randomNumber() {
-  //let num = Math.floor(Math.random() * 100);
-  //document.getElementById('randomNumber').innerText = num;
-  //}
-  //setInterval(randomNumber, 2000);
-
-  //async function incrementNumber(num) {
-  //num++;
-  //document.getElementById('incrementNumber').innerText = num;
-  //await new Promise(resolve => setTimeout(resolve, 3000));
-  //await incrementNumber(num);
-  //}
-  //incrementNumber(0);
-  //setInterval(updateValue, 2000);
+  dateTime = null;
   function updateValue(newValue) {
-    let element = document.getElementById('text');
     let parsedResult = JSON.parse(newValue);
-    element.innerHTML = parsedResult.text;
-    setTimeout(() => {
-      element.innerHTML = '';
-    }, 500);
+    if (parsedResult.date !== dateTime) {
+      let text = document.getElementById('text');
+      text.style.fontWeight = 'bold';
+      const led = document.getElementById('led');
+      text.innerHTML = parsedResult.text;
+      led.style.backgroundColor = 'green';
+      setTimeout(() => {
+        text.innerHTML = 'esperant comanda...'; text.style.fontWeight = 'normal'; led.style.backgroundColor = 'red';
+      }, 2000);
+    }
+    dateTime = parsedResult.date;
   }
 
   function fetchData() {
@@ -39,7 +37,6 @@
       .catch(error => console.error('Error:', error));
   }
 
-  // Call fetchData every second
-  setInterval(fetchData, 2000);
+  setInterval(fetchData, 5000);
 
 </script>

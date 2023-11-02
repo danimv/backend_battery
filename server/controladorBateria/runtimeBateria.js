@@ -43,7 +43,7 @@ class RuntimeBateria {
             const updatePromise = this.updateAPI();
             const updateResult = await updatePromise;
             const myObject = {
-                text: 'API envia ordres a bateria',
+                text: 'API envia ordres a bateria: injectant...',
                 result: updateResult,
                 date: this.getDateTime()
             };
