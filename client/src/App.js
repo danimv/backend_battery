@@ -3,19 +3,17 @@ import { Routes, Route, Link, BrowserRouter } from 'react-router-dom';
 
 import Header from './components/Header';
 import Config from './components/Config';
+import Bateria from './components/Bateria';
 
 function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <Header />
-        <nav>
-          <Link to="/config">Config</Link>
-        </nav>
+        <Header />        
         <Routes>
           <Route path="/config" element={<Config />} />
+          <Route path="/bateria" element={<Bateria />} />
         </Routes>
-        {/* <Config /> */}
       </div>
       </BrowserRouter>
   );

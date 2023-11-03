@@ -33,18 +33,19 @@ app.use(express.static(__dirname + '/public'));
 // app.set('view engine', '.hbs');
 // app.use(apiRouter);
 
-// const run = new runtime(1);
-// run.start();
+const run = new runtime(1);
+run.start();
 
-// app.use('/bateria', async function (req, res) {
-//     res.json(run.getResult()); 
-//     // res.send('batery')   
-// });
+app.get('/bateria', async function (req, res) {
+    console.log("trying");
+    const dataToSend = await run.getResult();
+    console.log(dataToSend);
+    res.json(dataToSend); 
+});
 
-app.get('/config', function (req, res, next) {   
-    console.log("configggg");
-    // configController.view;
-    res.json(configController.view);
+app.get('/config', async function (req, res, next) {  
+    const dataToSend = await configController.view();           
+    res.json(dataToSend);
 });
 
 app.get('/', (req, res) => {

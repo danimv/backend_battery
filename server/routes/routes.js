@@ -2,7 +2,6 @@ const express = require('express');
 const session = require('express-session');
 const router = express.Router();
 const configController = require('../controllers/configController');
-const rutesBateria = require('./bateria');
 
 // Principals rutes
 router.use('/config', function (req, res, next) {   

@@ -7,22 +7,23 @@ let conn = exportedD.dbConnection();
 
 // Vista comunitat
 exports.view = (req, res) => {
-  console.log("hello");
-  checkFileExists(location, function check(error) {
-    console.log("hello2");
-    if (!error) {
-      // Sqlite connexió 
-      conn.all('SELECT * FROM curvaHores JOIN bateriaConfig ORDER BY curvaHores.id ASC', (err, rows) => {
-        if (!err && rows[0]) {
-          console.log(rows);
-          return (rows);
-        } else {
-          console.log(err);
-        }
-      });
-    } else {
-      console.log(err);
-    }
+  return new Promise((resolve, reject) => {
+    checkFileExists(location, function check(error) {
+      if (!error) {
+        // Sqlite connexió 
+        conn.all('SELECT * FROM curvaHores JOIN bateriaConfig ORDER BY curvaHores.id ASC', (err, rows) => {
+          if (!err && rows[0]) {
+            const data = { rows };
+            // console.log(data);
+            resolve(data);
+          } else {
+            console.log(err);
+          }
+        });
+      } else {
+        console.log(err);
+      }
+    });
   });
 }
 
