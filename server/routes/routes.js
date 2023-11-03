@@ -14,10 +14,10 @@ router.use('/config', isAuthenticated, rutesConfig, function (req, res, next) {
     req.app.locals.layout = 'main';
     next();
 });
-router.use('/bateria', isAuthenticated, rutesBateria, function (req, res, next) {
-    req.app.locals.layout = 'main';
-    next();
-});
+// router.use('/bateria', isAuthenticated, rutesBateria, function (req, res, next) {
+//     req.app.locals.layout = 'main';
+//     next();
+// });
 
 // middleware to test if authenticated
 function isAuthenticated(request, res, next) {
