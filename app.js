@@ -5,8 +5,9 @@ require('dotenv').config();
 const exphbs = require('express-handlebars');
 const app = express();
 const port = process.env.PORT || 5015;
-// const apiRouter = require('./server/routes/routes');
-// const runtime = require('./server/controladorBateria/runtimeBateria');
+const apiRouter = require('./server/routes/routes');
+const configController = require('./server/controllers/configController');
+const runtime = require('./server/controladorBateria/runtimeBateria');
 
 // Parsing middleware
 // app.use(bodyParser.urlencoded({ extended: false }));
@@ -32,14 +33,21 @@ app.use(express.static(__dirname + '/public'));
 // app.set('view engine', '.hbs');
 // app.use(apiRouter);
 
-const run = new runtime(1);
-run.start();
+// const run = new runtime(1);
+// run.start();
 
-app.use('/bateria', async function (req, res) {
-    res.json(run.getResult()); 
-    // res.send('batery')   
+// app.use('/bateria', async function (req, res) {
+//     res.json(run.getResult()); 
+//     // res.send('batery')   
+// });
+
+app.get('/config', function (req, res, next) {   
+    console.log("configggg");
+    // configController.view;
+    res.json(configController.view);
 });
-app.get('*', (req, res) => {
+
+app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'client/public/index.html'));
 });
 

@@ -1,26 +1,26 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const BatteryConfig = ({ rows }) => {
-    useEffect(() => {
-        const calculateValues = () => {
-            var rows = document.querySelectorAll('tr');
-            rows.forEach(function (row) {
-                var consumPercent = row.querySelector('td:nth-child(2)').textContent;
-                var consumKw = row.querySelector('#consumKw').textContent;
-                var kWElement = row.querySelector('#kW');
-                var calculatedValue = parseInt(consumPercent) * parseInt(consumKw);
-                kWElement.textContent = calculatedValue + ' kW';
-                console.log('consumPercent:', consumPercent);
-                console.log('consumKw:', consumKw);
-                console.log('kWElement:', kWElement);
-            });
-        }
+    // fetch('http://localhost:5015/config')
+    //     .then(response => response.json())
+    //     .then(data => console.log(data))
+    //     .catch(error => console.error('Error:', error));
+    const [data, setData] = useState(null);
 
-        calculateValues();
-    }, []); // Make sure to add any dependencies that might affect this calculation
+    useEffect(() => {
+        axios.get('/config')
+            .then(response => {
+                setData(response.data);
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    }, []);
 
     return (
         <div>
+            <div>{data}</div>
             <div className="col-12" style={{ textAlign: 'center' }}>
                 <h4 style={{ color: 'rgb(9, 120, 231)', paddingTop: '1%', paddingBottom: '1%' }}>
                     <img src="imatges/battery.png" width="55" height="50" alt="Prosum" />
@@ -29,7 +29,7 @@ const BatteryConfig = ({ rows }) => {
             </div>
             <div>
                 <p id="consumKw" style={{ fontSize: '80%' }}>
-                    <b>Consum comunitat</b> {rows[0].consumKw}kW <b>Bateria</b>{rows[0].bateriaKw}kW
+                    <b>Consum comunitat</b> kW <b>Bateria</b>kW
                 </p>
             </div>
             <div className="table-responsive">
@@ -46,7 +46,7 @@ const BatteryConfig = ({ rows }) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {rows.map((row, index) => (
+                        {data && data.map((row, index) => (
                             <tr key={index}>
                                 <td>{row.hora}:00</td>
                                 <td>{row.consum}%</td>
