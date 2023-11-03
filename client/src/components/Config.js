@@ -1,22 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from './api'; 
 
-const BatteryConfig = ({ rows }) => {
-    // fetch('http://localhost:5015/config')
-    //     .then(response => response.json())
-    //     .then(data => console.log(data))
-    //     .catch(error => console.error('Error:', error));
+const BatteryConfig = ({ rows }) => {   
     const [data, setData] = useState(null);
-
     useEffect(() => {
-        axios.get('/config')
-            .then(response => {
-                setData(response.data);
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-            });
-    }, []);
+        // Make the request to the server when the component mounts
+        api.get('/config')
+          .then(response => {
+            console.log(response.data);
+          })
+          .catch(error => {
+            console.error('Error fetching data:', error);
+          });
+      }, []);
 
     return (
         <div>
