@@ -33,7 +33,7 @@ app.use(express.static(__dirname + '/public'));
 // app.set('view engine', '.hbs');
 // app.use(apiRouter);
 
-const run = new runtime(1);
+const run = new runtime(5);
 run.start();
 
 app.get('/bateria', async function (req, res) {

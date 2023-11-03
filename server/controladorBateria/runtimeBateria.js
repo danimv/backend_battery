@@ -1,8 +1,6 @@
 class RuntimeBateria {
 
-    constructor(interval) {
-        this.interval1s = interval * 1000;
-        this.interval2s = interval * 5000;
+    constructor(interval) {        
         this.num1 = 0;
         this.num2 = 0;
         this.updatedValue = 0;
@@ -13,7 +11,7 @@ class RuntimeBateria {
         this.histeresis = 0; 
         this.nivellBateria = 0; 
         this.nivellBateriaMinim = 1000;  
-        this.interval = 0;  
+        this.interval = interval * 1000;
         this.ordreBateria = 0; // 0 res, 1 acumula, 2 injecta    
     }
 
@@ -29,14 +27,16 @@ class RuntimeBateria {
         return `${year}${month}${day}${hours}${minutes}${seconds}${milliseconds}`;
     }
 
+    // Read values to decide the set value
     async getControlValues(){
         this.potencia = 4890;
         this.consum = 3480;
         this.histeresis = 5; 
         this.nivellBateria = 5200; 
-        this.interval = 10; 
+        this.interval = 4000; 
     }
 
+    // Set value to send to the battery
     async setControl(){
         if (this.potencia > this.consum){
             this.ordreBateria = 1;
@@ -47,14 +47,20 @@ class RuntimeBateria {
         }
     }
 
-    async updateAPI() {
+    // Send API to the battery
+    async sendAPI(){      
+
+    }
+
+    // Do the control and API
+    async doControl() {
         return new Promise(resolve => {
             setTimeout(async () => {
                 this.getControlValues();
                 this.setControl();
-                this.num2++;
-                resolve(this.num2);
-            }, this.interval2s);
+                this.sendAPI();
+                resolve();
+            }, this.interval);
         });
     }
 
@@ -67,11 +73,11 @@ class RuntimeBateria {
 
     async run() {
         while (true) {
-            const updatePromise = this.updateAPI();
+            const updatePromise = this.doControl();
             const update = await updatePromise;
             
             const myObject = {
-                text: 'API envia ordres a bateria: injectant...',
+                text: 'API envia ordres a bateria...',
                 potencia: this.potencia,
                 consum: this.consum,
                 nivellBateria: this.nivellBateria,
