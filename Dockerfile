@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM node:14-alpine
+FROM node:12-alpine
 # FROM arm32v7/node:14-alpine
 RUN apk add --no-cache python3 g++ make
 
