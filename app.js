@@ -2,11 +2,11 @@ const express = require('express');
 const path = require('path');
 const cors = require('cors');
 require('dotenv').config();
-const exphbs = require('express-handlebars');
+// const exphbs = require('express-handlebars');
 const app = express();
-const port = process.env.PORT || 5015;
-const apiRouter = require('./server/routes/routes');
-const configController = require('./server/controllers/configController');
+const port = process.env.PORT || 5046;
+// const apiRouter = require('./server/routes/routes');
+// const configController = require('./server/controllers/configController');
 const runtime = require('./server/controladorBateria/runtimeBateria');
 
 // Parsing middleware
@@ -47,6 +47,11 @@ app.use(express.static(__dirname + '/public'));
 //     const dataToSend = await configController.view();           
 //     res.json(dataToSend);
 // });
+
+app.get('/hola', async function (req, res) {
+    console.log("Hola");    
+    res.send("Hola"); 
+});
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'client/build/index.html'));
