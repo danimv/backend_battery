@@ -18,12 +18,10 @@ const BatteryConfig = ({ rows }) => {
 
     const handleInputChange = (e, rowIndex, colIndex, copy) => {
         const newValue = e.target.value;
-        let rowMin=0;
-        let rowMax=0;
+        let rowMin = 0;
+        let rowMax = 0;
         // eslint-disable-next-line no-unused-expressions
-        copy ===1 ? (rowMin=0,rowMax=data.length) : (rowMin=rowIndex,rowMax=rowIndex+1);
-        
-        // Update newData for all rows using a loop
+        copy === 1 ? (rowMin = 0, rowMax = data.length) : (rowMin = rowIndex, rowMax = rowIndex + 1);
         setData(prevData => {
             const newDataCopy = [...prevData];
             for (let i = rowMin; i < rowMax; i++) {
@@ -51,35 +49,37 @@ const BatteryConfig = ({ rows }) => {
     return (
         <div>
             <div style={{ marginTop: '1%', marginBottom: '1%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', textAlign: 'left' }}>
-                <div style={{ fontSize: '110%', textAlign: 'center', color: 'rgb(9, 120, 231)', marginLeft: '6%', paddingTop: '1%', paddingBottom: '1%', display: 'inline-block' }}>
+                <div style={{ fontSize: '120%', textAlign: 'center', color: 'rgb(9, 120, 231)', marginLeft: '20%', paddingTop: '1%', paddingBottom: '1%', display: 'inline-block' }}>
                     {/* <img src="imatges/battery.png" width="55" height="50" alt="Prosum" /> */}
-                    <b>Curva consum</b>
+                    <b>Curva consum comunitat</b>
                 </div>
                 {data !== null ? (
-                    <div style={{ marginRight: '6%', textAlign: 'center', display: 'inline-block' }}>
-                        <table style={{ backgroundColor: '#f7f7f7', borderRadius: '15px' }}>
+                    <div style={{ marginRight: '20%', textAlign: 'center', display: 'inline-block' }}>
+                        <table style={{fontSize: '95%', backgroundColor: '#f7f7f7', borderRadius: '15px', textAlign: 'center' }}>
                             <thead>
-                                <tr style={{ color: 'rgb(9, 120, 231)' }}>
-                                    <th>Consum comunitat</th>
-                                    <th>Potència bateria</th>
+                                <tr style={{ color: 'rgb(9, 120, 231)', textAlign: 'center' }}>
+                                    <th>Consum</th>
+                                    <th>Bateria</th>
                                 </tr>
                             </thead>
                             <tbody style={{ color: 'rgb(9, 120, 231)' }}>
                                 {data.map((row, rowIndex) => (
-                                    <tr key={row.id}>
+                                    <tr style={{ textAlign: 'center' }} key={row.id}>
                                         {Object.keys(row).map((col, colIndex) => {
-                                            if (rowIndex === 0 && (colIndex === 6 || colIndex === 7)) { // Check for first row and columns 8 and 9
+                                            if (rowIndex === 0 && (col === 'consumKw' || col === 'bateriaKw')) { // Check for first row and columns 8 and 9
                                                 return (
-                                                    <td key={colIndex}>
-                                                        {editModeTable2 === rowIndex && col !== 'hora' ? (
+                                                    <td style={{paddingRight:'30px', textAlign: 'center' }} key={colIndex}>
+                                                        {editModeTable2 === rowIndex ? (
                                                             <input
                                                                 type="text"
                                                                 value={row[col]}
-                                                                onChange={(e) => handleInputChange(e, rowIndex, col,1)}
-                                                                style={{ width: '30%' }}
+                                                                onChange={(e) => handleInputChange(e, rowIndex, col, 1)}
+                                                                style={{ width: '30%', textAlign: 'center' }}
                                                             />
                                                         ) : (
-                                                            col === 'consumKw' ? `${row[col]}kW` : col === 'bateriaKw' ? `${row[col]}kW` : row[col]
+                                                            <span style={{paddingLeft:'30px', textAlign: 'center' }}>
+                                                                {col === 'consumKw' ? `${row[col]}kW` : col === 'bateriaKw' ? `${row[col]}kW` : row[col]}
+                                                            </span>
                                                         )}
                                                     </td>
                                                 );
@@ -127,8 +127,8 @@ const BatteryConfig = ({ rows }) => {
                                                         <input
                                                             type="text"
                                                             value={row[col]}
-                                                            onChange={(e) => handleInputChange(e, rowIndex, col,0)}
-                                                            style={{ width: '30%' }}
+                                                            onChange={(e) => handleInputChange(e, rowIndex, col, 0)}
+                                                            style={{ width: '20%' }}
                                                         />
                                                     ) : (
                                                         col === 'hora' ? `${row[col]}:00` : col === 'consum' ? `${row[col]}% (${row[col] * row['consumKw']}kW)` : col === 'interval' ? `${row[col]}s` : col === 'histeresis' ? `${row[col]}s` : row[col]

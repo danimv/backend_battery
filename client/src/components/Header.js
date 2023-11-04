@@ -24,10 +24,7 @@ class Header extends React.Component {
               </li>
               <li className="nav-item" style={paddingRight10}>
                 <a className="nav-link active" style={fontSize140} aria-current="page" href="/bateria">Bateria</a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link active" style={fontSize140} aria-current="page" href="/logout">Logout</a>
-              </li>
+              </li>             
             </ul>
           </div>
         </div>
