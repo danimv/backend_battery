@@ -4,7 +4,7 @@ const cors = require('cors');
 require('dotenv').config();
 // const exphbs = require('express-handlebars');
 const app = express();
-const port = process.env.PORT || 5046;
+const port = process.env.PORT || 4782;
 // const apiRouter = require('./server/routes/routes');
 // const configController = require('./server/controllers/configController');
 const runtime = require('./server/controladorBateria/runtimeBateria');
@@ -18,8 +18,6 @@ app.use(express.urlencoded({ extended: true })); // New
 app.use(express.json());
 app.use((cors()));
 
-// Static Files
-app.use(express.static(__dirname + '/public'));
 
 // Templating Engine
 // const handlebars = exphbs.create({
@@ -48,13 +46,16 @@ app.use(express.static(__dirname + '/public'));
 //     res.json(dataToSend);
 // });
 
-app.get('/hola', async function (req, res) {
-    console.log("Hola");    
-    res.send("Hola"); 
-});
+// app.get('/hola', async function (req, res) {
+//     console.log("Hola");
+//     res.send("Hola");
+// });
 
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client/build/index.html'));
+
+// Static Files
+app.use(express.static(path.join(__dirname, 'client/build')));
+app.get('*', (req,res) =>{
+    res.sendFile(path.join(__dirname,'client/build/index.html'));
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
