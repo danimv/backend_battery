@@ -3,6 +3,7 @@ import api from './api';
 
 const BatteryConfig = ({ rows }) => {
     const [data, setData] = useState(null);
+    const [editMode, setEditMode] = useState(null);
     useEffect(() => {
         // Make the request to the server when the component mounts
         api.get('/config')
@@ -14,19 +15,75 @@ const BatteryConfig = ({ rows }) => {
             });
     }, []);
 
+    const handleInputChange = (e, rowIndex, colIndex) => {
+        const newData = [...data];
+        newData[rowIndex][colIndex] = e.target.value;
+        setData(newData);
+    };
+
+    const handleEditRow = (rowIndex) => {
+        setEditMode(rowIndex);
+        console.log(editMode);
+    };
+
+    const handleSave = () => {
+        setEditMode(null);
+        console.log(data);
+        // Add code to save the edited data (e.g., send it to the server)
+    };
+
     return (
         <div>
-            <div className="col-12" style={{ textAlign: 'center' }}>
-                <h4 style={{ color: 'rgb(9, 120, 231)', paddingTop: '1%', paddingBottom: '1%' }}>
+            <div style={{ marginTop: '1%', marginBottom: '1%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', textAlign: 'left' }}>
+                <div style={{ fontSize: '110%', textAlign: 'center', color: 'rgb(9, 120, 231)', marginLeft: '6%', paddingTop: '1%', paddingBottom: '1%', display: 'inline-block' }}>
                     {/* <img src="imatges/battery.png" width="55" height="50" alt="Prosum" /> */}
-                    CONFIGURACIÓ BATERIA COMUNITÀRIA
-                </h4>
-            </div>
-            <div>
+                    <b>Curva consum</b>
+                </div>
                 {data !== null ? (
-                    <p id="consumKw" style={{ fontSize: '80%' }}>
-                        <b>Consum comunitat </b>{data[0].bateriaKw} kW <b>Bateria</b> {data[0].consumKw}kW
-                    </p>
+                    <div style={{ marginRight: '6%', textAlign: 'center', display: 'inline-block' }}>
+                        <table style={{ backgroundColor: '#f7f7f7', borderRadius: '15px', padding: '3%' }}>
+                            <thead>
+                                <tr style={{ color: 'rgb(9, 120, 231)' }}>                                    
+                                    <th>Potència bateria</th>
+                                    <th>Consum comunitat</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {data.map((row, rowIndex) => (
+                                    <tr key={row.id}>
+                                        {Object.keys(row).map((col, colIndex) => {
+                                            if (rowIndex === 0 && (colIndex === 6 || colIndex === 7)) { // Check for columns 8 and 9
+                                                return (
+                                                    <td key={colIndex}>
+                                                        {editMode === rowIndex && col !== 'hora' ? (
+                                                            <input
+                                                                type="text"
+                                                                value={row[col]}
+                                                                onChange={(e) => handleInputChange(e, rowIndex, col)}
+                                                                style={{ width: '30%' }}
+                                                            />
+                                                        ) : (
+                                                            col === 'hora' ? `${row[col]}:00` : col === 'consum' ? `${row[col]}% (${row[col] * row['consumKw']}kW)` : col === 'interval' ? `${row[col]}s` : col === 'histeresis' ? `${row[col]}s` : row[col]
+                                                        )}
+                                                    </td>
+                                                );
+                                            } else {
+                                                return null; // Skip rendering for other columns
+                                            }
+                                        })}
+                                        <td>
+                                            {rowIndex === 0 && editMode === rowIndex ? (
+                                                <button onClick={() => handleSave()}>Save</button>
+                                            ) : rowIndex === 0 ? (
+                                                <button onClick={() => handleEditRow(rowIndex)}>Edit</button>
+                                            ) : null}
+                                        </td>
+                                    </tr>
+                                ))}
+
+                            </tbody>
+                        </table>
+                    </div>
                 ) : (
                     <p>Loading...</p>
                 )}
@@ -37,8 +94,7 @@ const BatteryConfig = ({ rows }) => {
                         <thead className="thead-dark">
                             <tr>
                                 <th scope="col">Hora</th>
-                                <th scope="col">% consum</th>
-                                <th scope="col">kW consum</th>
+                                <th scope="col">Consum</th>
                                 <th scope="col">Interval</th>
                                 <th scope="col">Histeresis</th>
                                 <th scope="col">Automatic</th>
@@ -46,18 +102,34 @@ const BatteryConfig = ({ rows }) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {data.map((row, index) => (
-                                <tr key={index}>
-                                    <td>{row.hora}:00</td>
-                                    <td>{row.consum}%</td>
-                                    <td id="kW">{row.consum * row.consumKw}kW</td>
-                                    <td>{row.interval}s</td>
-                                    <td>{row.histeresis}%</td>
-                                    <td>{row.automatic}</td>
-                                    <td style={{ textAlign: 'center' }}>
-                                        <a href={`/usuaris/edituser/`} type="button" className="btn btn-light btn">
-                                            <i className="bi bi-pencil"></i> Edita
-                                        </a>
+                            {data.map((row, rowIndex) => (
+                                <tr key={row.id}>
+                                    {Object.keys(row).map((col, colIndex) => {
+                                        if (colIndex > 0 && colIndex < Object.keys(row).length - 2) {
+                                            return (
+                                                <td key={colIndex}>
+                                                    {editMode === rowIndex && col !== 'hora' ? (
+                                                        <input
+                                                            type="text"
+                                                            value={row[col]}
+                                                            onChange={(e) => handleInputChange(e, rowIndex, col)}
+                                                            style={{ width: '30%' }}
+                                                        />
+                                                    ) : (
+                                                        col === 'hora' ? `${row[col]}:00` : col === 'consum' ? `${row[col]}% (${row[col] * row['consumKw']}kW)` : col === 'interval' ? `${row[col]}s` : col === 'histeresis' ? `${row[col]}s` : row[col]
+                                                    )}
+                                                </td>
+                                            );
+                                        } else {
+                                            return null; // Skip rendering for the columns to hide
+                                        }
+                                    })}
+                                    <td>
+                                        {editMode === rowIndex ? (
+                                            <button onClick={() => handleSave()}>Save</button>
+                                        ) : (
+                                            <button onClick={() => handleEditRow(rowIndex)}>Edit</button>
+                                        )}
                                     </td>
                                 </tr>
                             ))}
@@ -66,11 +138,6 @@ const BatteryConfig = ({ rows }) => {
                 ) : (
                     <p>Loading...</p>
                 )}
-                <div style={{ textAlign: 'center' }}>
-                    <a style={{ fontSize: '100%' }} href="/usuaris/edituser/" type="button" className="btn btn-light btn">
-                        <i style={{ fontSize: '115%' }} className="bi bi-plus-circle"></i> Afegeix hora
-                    </a>
-                </div>
             </div>
         </div>
     );

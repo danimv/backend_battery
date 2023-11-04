@@ -33,7 +33,7 @@ class RuntimeBateria {
         this.consum = 3480;
         this.histeresis = 5; 
         this.nivellBateria = 5200; 
-        this.interval = 4000; 
+        // this.interval = 10000; 
     }
 
     // Set value to send to the battery

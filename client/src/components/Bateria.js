@@ -2,23 +2,21 @@ import React, { useState, useEffect } from 'react';
 import api from './api';
 
 const Bateria = () => {
-    const [dataBateria, setData] = useState(null);
+    const [newData, setNewData] = useState(null);
 
-    const updateValue = (newData) => {
-        console.log(dataBateria.ordre);
-        let parsedResult = newData;
-        if (parsedResult.date !== dataBateria) {
-            let text = document.getElementById('text');
-            text.style.fontWeight = 'bold';
-            const led = document.getElementById('led');
-            text.innerHTML = ordreToText(parsedResult.ordre);
-            led.style.backgroundColor = (parsedResult.ordre === 1) ? "blue" : (parsedResult.ordre === 2) ? "green" : "red";
-            setTimeout(() => {
-                text.innerHTML = '...';
-                text.style.fontWeight = 'normal';
-                led.style.backgroundColor = 'grey';
-            }, 4000);
-        }
+    const updateValue = (data) => {
+        let parsedResult = data;
+        let text = document.getElementById('text');
+        text.style.fontWeight = 'bold';
+        const led = document.getElementById('led');
+        text.innerHTML = ordreToText(parsedResult.ordre);
+        led.style.backgroundColor = (parsedResult.ordre === 1) ? "blue" : (parsedResult.ordre === 2) ? "green" : "red";
+        setTimeout(() => {
+            text.innerHTML = '...';
+            text.style.fontWeight = 'normal';
+            led.style.backgroundColor = 'grey';
+        }, 3000);
+
     };
 
     function ordreToText(ordre) {
@@ -29,9 +27,8 @@ const Bateria = () => {
         api.get('/bateria')  // Make a request to the server to get the updated value
             //   .then(response => response.json())
             .then(data => {
-                console.log(data);
-                data.data !== null && setData(JSON.parse(data.data));
-                dataBateria !== null && updateValue(dataBateria);
+                data.data !== null && setNewData(JSON.parse(data.data));
+                data.data !== null && updateValue(JSON.parse(data.data));
             })
             .catch(error => console.error('Error:', error));
     };
@@ -60,7 +57,7 @@ const Bateria = () => {
                 <p id="text" style={{ marginLeft: '2%', marginTop: '1%', display: 'inline-block' }}></p>
             </div>
             <div className="table-responsive">
-                {dataBateria !== null ? (
+                {newData !== null ? (
                     <table id="tableF" className="table table-bordered" style={{ fontSize: '90%' }}>
                         <thead className="thead-dark">
                             <tr>
@@ -75,13 +72,13 @@ const Bateria = () => {
                         </thead>
                         <tbody>
                             <tr>
-                                <td>{dataBateria.date}</td>
-                                <td>{dataBateria.potencia}kW</td>
-                                <td>{dataBateria.consum}kW</td>
-                                <td>{dataBateria.nivellBateria}kW</td>
-                                <td>{ordreToText(dataBateria.ordre)}</td>
-                                <td>{dataBateria.interval}s</td>
-                                <td>{dataBateria.histeresis}%</td>
+                                <td>{newData.date}</td>
+                                <td>{newData.potencia}kW</td>
+                                <td>{newData.consum}kW</td>
+                                <td>{newData.nivellBateria}kW</td>
+                                <td>{ordreToText(newData.ordre)}</td>
+                                <td>{newData.interval / 1000}s</td>
+                                <td>{newData.histeresis}%</td>
                             </tr>
                         </tbody>
                     </table>
