@@ -3,7 +3,8 @@ import api from './api';
 
 const BatteryConfig = ({ rows }) => {
     const [data, setData] = useState(null);
-    const [editMode, setEditMode] = useState(null);
+    const [editModeTable1, setEditMode1] = useState(null);
+    const [editModeTable2, setEditMode2] = useState(null);
     useEffect(() => {
         // Make the request to the server when the component mounts
         api.get('/config')
@@ -15,20 +16,35 @@ const BatteryConfig = ({ rows }) => {
             });
     }, []);
 
-    const handleInputChange = (e, rowIndex, colIndex) => {
-        const newData = [...data];
-        newData[rowIndex][colIndex] = e.target.value;
-        setData(newData);
+    const handleInputChange = (e, rowIndex, colIndex, copy) => {
+        const newValue = e.target.value;
+        let rowMin=0;
+        let rowMax=0;
+        // eslint-disable-next-line no-unused-expressions
+        copy ===1 ? (rowMin=0,rowMax=data.length) : (rowMin=rowIndex,rowMax=rowIndex+1);
+        
+        // Update newData for all rows using a loop
+        setData(prevData => {
+            const newDataCopy = [...prevData];
+            for (let i = rowMin; i < rowMax; i++) {
+                newDataCopy[i][colIndex] = newValue;
+            }
+            return newDataCopy;
+        });
     };
 
-    const handleEditRow = (rowIndex) => {
-        setEditMode(rowIndex);
-        console.log(editMode);
+    const handleEditRowTable1 = (rowIndex) => {
+        setEditMode1(rowIndex);
+        setEditMode2(null);
+    };
+    const handleEditRowTable2 = (rowIndex) => {
+        setEditMode1(null);
+        setEditMode2(rowIndex);
     };
 
     const handleSave = () => {
-        setEditMode(null);
-        console.log(data);
+        setEditMode1(null);
+        setEditMode2(null);
         // Add code to save the edited data (e.g., send it to the server)
     };
 
@@ -41,46 +57,45 @@ const BatteryConfig = ({ rows }) => {
                 </div>
                 {data !== null ? (
                     <div style={{ marginRight: '6%', textAlign: 'center', display: 'inline-block' }}>
-                        <table style={{ backgroundColor: '#f7f7f7', borderRadius: '15px', padding: '3%' }}>
+                        <table style={{ backgroundColor: '#f7f7f7', borderRadius: '15px' }}>
                             <thead>
-                                <tr style={{ color: 'rgb(9, 120, 231)' }}>                                    
-                                    <th>Potència bateria</th>
+                                <tr style={{ color: 'rgb(9, 120, 231)' }}>
                                     <th>Consum comunitat</th>
+                                    <th>Potència bateria</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody style={{ color: 'rgb(9, 120, 231)' }}>
                                 {data.map((row, rowIndex) => (
                                     <tr key={row.id}>
                                         {Object.keys(row).map((col, colIndex) => {
-                                            if (rowIndex === 0 && (colIndex === 6 || colIndex === 7)) { // Check for columns 8 and 9
+                                            if (rowIndex === 0 && (colIndex === 6 || colIndex === 7)) { // Check for first row and columns 8 and 9
                                                 return (
                                                     <td key={colIndex}>
-                                                        {editMode === rowIndex && col !== 'hora' ? (
+                                                        {editModeTable2 === rowIndex && col !== 'hora' ? (
                                                             <input
                                                                 type="text"
                                                                 value={row[col]}
-                                                                onChange={(e) => handleInputChange(e, rowIndex, col)}
+                                                                onChange={(e) => handleInputChange(e, rowIndex, col,1)}
                                                                 style={{ width: '30%' }}
                                                             />
                                                         ) : (
-                                                            col === 'hora' ? `${row[col]}:00` : col === 'consum' ? `${row[col]}% (${row[col] * row['consumKw']}kW)` : col === 'interval' ? `${row[col]}s` : col === 'histeresis' ? `${row[col]}s` : row[col]
+                                                            col === 'consumKw' ? `${row[col]}kW` : col === 'bateriaKw' ? `${row[col]}kW` : row[col]
                                                         )}
                                                     </td>
                                                 );
                                             } else {
-                                                return null; // Skip rendering for other columns
+                                                return null; // Skip rendering for other columns or rows
                                             }
                                         })}
                                         <td>
-                                            {rowIndex === 0 && editMode === rowIndex ? (
+                                            {rowIndex === 0 && editModeTable2 === rowIndex ? (
                                                 <button onClick={() => handleSave()}>Save</button>
                                             ) : rowIndex === 0 ? (
-                                                <button onClick={() => handleEditRow(rowIndex)}>Edit</button>
+                                                <button onClick={() => handleEditRowTable2(rowIndex)}>Edit</button>
                                             ) : null}
                                         </td>
                                     </tr>
                                 ))}
-
                             </tbody>
                         </table>
                     </div>
@@ -108,11 +123,11 @@ const BatteryConfig = ({ rows }) => {
                                         if (colIndex > 0 && colIndex < Object.keys(row).length - 2) {
                                             return (
                                                 <td key={colIndex}>
-                                                    {editMode === rowIndex && col !== 'hora' ? (
+                                                    {editModeTable1 === rowIndex && col !== 'hora' ? (
                                                         <input
                                                             type="text"
                                                             value={row[col]}
-                                                            onChange={(e) => handleInputChange(e, rowIndex, col)}
+                                                            onChange={(e) => handleInputChange(e, rowIndex, col,0)}
                                                             style={{ width: '30%' }}
                                                         />
                                                     ) : (
@@ -125,10 +140,10 @@ const BatteryConfig = ({ rows }) => {
                                         }
                                     })}
                                     <td>
-                                        {editMode === rowIndex ? (
+                                        {editModeTable1 === rowIndex ? (
                                             <button onClick={() => handleSave()}>Save</button>
                                         ) : (
-                                            <button onClick={() => handleEditRow(rowIndex)}>Edit</button>
+                                            <button onClick={() => handleEditRowTable1(rowIndex)}>Edit</button>
                                         )}
                                     </td>
                                 </tr>
