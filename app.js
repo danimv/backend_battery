@@ -33,23 +33,23 @@ app.use(express.static(__dirname + '/public'));
 // app.set('view engine', '.hbs');
 // app.use(apiRouter);
 
-const run = new runtime(5);
-run.start();
+// const run = new runtime(5);
+// run.start();
 
-app.get('/bateria', async function (req, res) {
-    console.log("trying");
-    const dataToSend = await run.getResult();
-    console.log(dataToSend);
-    res.json(dataToSend); 
-});
+// app.get('/bateria', async function (req, res) {
+//     console.log("trying");
+//     const dataToSend = await run.getResult();
+//     console.log(dataToSend);
+//     res.json(dataToSend); 
+// });
 
-app.get('/config', async function (req, res, next) {  
-    const dataToSend = await configController.view();           
-    res.json(dataToSend);
-});
+// app.get('/config', async function (req, res, next) {  
+//     const dataToSend = await configController.view();           
+//     res.json(dataToSend);
+// });
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client/public/index.html'));
+    res.sendFile(path.join(__dirname, 'client/build/index.html'));
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
