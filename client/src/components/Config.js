@@ -5,6 +5,13 @@ const BatteryConfig = ({ rows }) => {
     const [data, setData] = useState(null);
     const [editModeTable1, setEditMode1] = useState(null);
     const [editModeTable2, setEditMode2] = useState(null);
+
+    // fetch('/config')
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         setData(data.data.rows);
+    //     });
+
     useEffect(() => {
         // Make the request to the server when the component mounts
         api.get('/config')
@@ -55,7 +62,7 @@ const BatteryConfig = ({ rows }) => {
                 </div>
                 {data !== null ? (
                     <div style={{ marginRight: '20%', textAlign: 'center', display: 'inline-block' }}>
-                        <table style={{fontSize: '95%', backgroundColor: '#f7f7f7', borderRadius: '15px', textAlign: 'center' }}>
+                        <table style={{ fontSize: '95%', backgroundColor: '#f7f7f7', borderRadius: '15px', textAlign: 'center' }}>
                             <thead>
                                 <tr style={{ color: 'rgb(9, 120, 231)', textAlign: 'center' }}>
                                     <th>Consum</th>
@@ -68,7 +75,7 @@ const BatteryConfig = ({ rows }) => {
                                         {Object.keys(row).map((col, colIndex) => {
                                             if (rowIndex === 0 && (col === 'consumKw' || col === 'bateriaKw')) { // Check for first row and columns 8 and 9
                                                 return (
-                                                    <td style={{paddingRight:'30px', textAlign: 'center' }} key={colIndex}>
+                                                    <td style={{ paddingRight: '30px', textAlign: 'center' }} key={colIndex}>
                                                         {editModeTable2 === rowIndex ? (
                                                             <input
                                                                 type="text"
@@ -77,7 +84,7 @@ const BatteryConfig = ({ rows }) => {
                                                                 style={{ width: '30%', textAlign: 'center' }}
                                                             />
                                                         ) : (
-                                                            <span style={{paddingLeft:'30px', textAlign: 'center' }}>
+                                                            <span style={{ paddingLeft: '30px', textAlign: 'center' }}>
                                                                 {col === 'consumKw' ? `${row[col]}kW` : col === 'bateriaKw' ? `${row[col]}kW` : row[col]}
                                                             </span>
                                                         )}

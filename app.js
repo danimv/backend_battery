@@ -4,9 +4,10 @@ const cors = require('cors');
 require('dotenv').config();
 // const exphbs = require('express-handlebars');
 const app = express();
-const port = process.env.PORT || 4782;
+// const findPort = require('./server/utils/findPort');
+// const port = process.env.PORT;
 // const apiRouter = require('./server/routes/routes');
-// const configController = require('./server/controllers/configController');
+const configController = require('./server/controllers/configController');
 const runtime = require('./server/controladorBateria/runtimeBateria');
 
 // Parsing middleware
@@ -31,31 +32,34 @@ app.use((cors()));
 // app.set('view engine', '.hbs');
 // app.use(apiRouter);
 
-// const run = new runtime(5);
-// run.start();
+const run = new runtime(3);
+run.start();
 
-// app.get('/bateria', async function (req, res) {
-//     console.log("trying");
-//     const dataToSend = await run.getResult();
-//     console.log(dataToSend);
-//     res.json(dataToSend); 
-// });
+app.get('/bateria', async function (req, res) {
+    console.log("trying");
+    const dataToSend = await run.getResult();
+    console.log(dataToSend);
+    res.json(dataToSend);
+});
 
-// app.get('/config', async function (req, res, next) {  
-//     const dataToSend = await configController.view();           
-//     res.json(dataToSend);
-// });
 
-// app.get('/hola', async function (req, res) {
-//     console.log("Hola");
-//     res.send("Hola");
-// });
-
+app.get('/hola', async function (req, res) {
+    console.log("Hola");
+    res.send("Hola");
+});
 
 // Static Files
 app.use(express.static(path.join(__dirname, 'client/build')));
-app.get('*', (req,res) =>{
-    res.sendFile(path.join(__dirname,'client/build/index.html'));
+
+app.get('/config', async function (req, res, next) {
+    const dataToSend = await configController.view();
+    res.json(dataToSend);
 });
 
+app.get('/*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client/build/index.html'));
+});
+
+const port = process.env.PORT;
 app.listen(port, () => console.log(`Listening on port ${port}`));
+
