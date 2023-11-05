@@ -39,7 +39,7 @@ run.start();
 app.get('/bateria', async function (req, res) {
     console.log("trying");
     const dataToSend = await run.getResult();
-    console.log(dataToSend);
+    // console.log(dataToSend);
     res.json(dataToSend);
 });
 
