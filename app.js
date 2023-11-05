@@ -43,7 +43,7 @@ app.get('/bateria', async function (req, res) {
 });
 
 app.get('/hola', async function (req, res) {
-    console.log("Hola");
+    // console.log("Hola");
     res.send("Hola");
 });
 
