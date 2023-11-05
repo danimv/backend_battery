@@ -50,7 +50,7 @@ app.get('/hola', async function (req, res) {
 
 app.get('/configuracio', async function (req, res) {
     try {
-        // const dataToSend = await configController.view();
+        const dataToSend = await configController.view();
         // console.log("adeuu");
         res.json("adeuuuu");
         // res.json(dataToSend);

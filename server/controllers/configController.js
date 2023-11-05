@@ -8,8 +8,8 @@ let conn = exportedD.dbConnection();
 // Vista comunitat
 exports.view = (req, res) => {
   return new Promise((resolve, reject) => {
-    checkFileExists(location, function check(error) {
-      if (!error) {
+    // checkFileExists(location, function check(error) {
+      // if (!error) {
         // Sqlite connexió 
         // conn.all('SELECT curvaHores.*,bateriaConfig.consumKw, bateriaConfig.bateriaKw FROM curvaHores JOIN bateriaConfig ORDER BY curvaHores.idHora ASC', (err, rows) => {
         //   if (!err && rows[0]) {
@@ -21,10 +21,10 @@ exports.view = (req, res) => {
         //   }
         // });
         resolve(getDateTime());
-      } else {
-        console.log(err);
-      }
-    });
+      // } else {
+      //   console.log(err);
+      // }
+    // });
   });
 }
 
