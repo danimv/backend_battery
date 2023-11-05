@@ -34,10 +34,10 @@ cd ../backend_battery
 npm start &
 # set "PORT=5555" && npm start
 echo "Nodejs started"
-cd ../backend_battery/client
+# cd ../backend_battery/client
 
 # Start the React frontend server
-npm start
+# npm start
 # http-server -p 5090 -c-1 build
 # serve -s build
 # echo "HTTP server started on localhost"

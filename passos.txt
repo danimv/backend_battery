@@ -29,4 +29,7 @@ sudo nano /etc/nginx/nginx.conf
 
 sudo systemctl reload nginx
 
-./start_servers_Linux
+sudo chmod 777 backend_battery
+
+sudo chmod +x start_servers_Linux.sh
+./start_servers_Linux.sh
