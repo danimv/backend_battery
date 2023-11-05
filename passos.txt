@@ -17,7 +17,7 @@ sudo nano /etc/nginx/nginx.conf
 
 server {
     listen 80;
-    server_name your_domain.com; # Replace with your domain or IP address
+    server_name localhost; # Replace with your domain or IP address
 
     location / {
         root /path/to/your/react/app/build; # Replace with the actual path to your React app build folder
