@@ -56,7 +56,7 @@ const BatteryConfig = () => {
 
     return (
         <div>
-            {(data !== null) &&
+            {(data !== null && data.consum) &&
                 <p>{data.consum}</p>
             }
         </div>
