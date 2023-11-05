@@ -7,3 +7,17 @@ sudo git clone https://github.com/danimv/backend_battery.git
 sudo chmod +x install_servers_Linux.sh
 
 ./install_servers_Linux.sh
+
+sudo nano /etc/nginx/nginx.conf
+
+server {
+    listen 80;
+    server_name your_domain.com; # Replace with your domain or IP address
+
+    location / {
+        root /path/to/your/react/app/build; # Replace with the actual path to your React app build folder
+        try_files $uri $uri/ /index.html;
+    }
+}
+
+sudo systemctl reload nginx
