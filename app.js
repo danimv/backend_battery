@@ -52,7 +52,7 @@ app.get('/configuracio', async function (req, res, next) {
     // const dataToSend = await configController.view();
     console.log("adeu");
     // res.json(dataToSend);
-    // res.send("Adeu");
+    res.send("Adeu");
 });
 
 // Static Files
