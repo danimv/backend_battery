@@ -1,4 +1,4 @@
-Passos a seguir
+Passos a seguir a a
 sudo apt install git
 
 sudo mkdir app_react
