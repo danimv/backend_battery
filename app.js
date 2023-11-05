@@ -9,13 +9,16 @@ const app = express();
 // const apiRouter = require('./server/routes/routes');
 const configController = require('./server/controllers/configController');
 const runtime = require('./server/controladorBateria/runtimeBateria');
+const exportedD = require('./server/db/dbDriver');
+const location = exportedD.dbLocation();
+let conn = exportedD.dbConnection();
 
-// Parsing middleware
+// Parsing middlewar
 // app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.urlencoded({ extended: true })); // New
 
 // Parse application/json
-// app.use(bodyParser.json());
+// app.use(bodyParser.json()); 
 app.use(express.json());
 app.use((cors()));
 // app.use('/configuracio', createProxyMiddleware({ target: 'http://localhost:5032', changeOrigin: true }));
@@ -48,20 +51,16 @@ app.get('/hola', async function (req, res) {
     res.send("HHHolaaa");
 });
 
-app.get('/configuracio', async function (req, res) {
-    try {
-        configController.view()
-            .then(response => {
-                // console.log(response.data);
-                res.json(response);
-            })
-        // res.json("adeuuuu2");
-
-        // console.log(dataToSend);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Internal Server Error' });
-    }
+app.get('/configuracio', function (req, res) {
+    conn.all('SELECT curvaHores.*,bateriaConfig.consumKw, bateriaConfig.bateriaKw FROM curvaHores JOIN bateriaConfig ORDER BY curvaHores.idHora ASC', (err, rows) => {
+        if (!err && rows[0]) {
+            // console.log("inside2");        
+            // console.log(data);
+            res.json(rows);
+        } else {
+            console.log(err);
+        }
+    });
 });
 
 // Static Files
