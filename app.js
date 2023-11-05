@@ -52,7 +52,7 @@ app.get('/hola', async function (req, res) {
 });
 
 app.get('/configuracio', function (req, res) {
-    conn.all('SELECT * FROM curvaHores ORDER BY curvaHores.idHora ASC', (err, rows) => {
+    conn.all('SELECT * FROM curvaHores ORDER BY idHora ASC', (err, rows) => {
         res.json(rows);
     });
 });
