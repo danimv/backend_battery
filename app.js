@@ -52,8 +52,8 @@ app.get('/configuracio', async function (req, res) {
     try {
         const dataToSend =  configController.view();
         
-        res.json("adeuuuu2");
-        // res.json(dataToSend);
+        // res.json("adeuuuu2");
+        res.json(dataToSend);
         // console.log(dataToSend);
     } catch (error) {
         console.error(error);
