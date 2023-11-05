@@ -20,7 +20,7 @@ class Header extends React.Component {
           <div className="collapse navbar-collapse" id="navbarSupportedContent" role="alert">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item" style={paddingRight10}>
-                <a className="nav-link active" style={fontSize140} aria-current="page" href="/config">Config</a>
+                <a className="nav-link active" style={fontSize140} aria-current="page" href="/configuracio">Config</a>
               </li>
               <li className="nav-item" style={paddingRight10}>
                 <a className="nav-link active" style={fontSize140} aria-current="page" href="/bateria">Bateria</a>

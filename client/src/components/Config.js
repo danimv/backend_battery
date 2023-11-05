@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import api from './api';
 
-const BatteryConfig = ({ rows }) => {
+const BatteryConfig = () => {
     const [data, setData] = useState(null);
     const [editModeTable1, setEditMode1] = useState(null);
     const [editModeTable2, setEditMode2] = useState(null);
@@ -14,7 +14,7 @@ const BatteryConfig = ({ rows }) => {
 
     useEffect(() => {
         // Make the request to the server when the component mounts
-        api.get('/config')
+        api.get('/configuracio')
             .then(response => {
                 setData(response.data.rows);
             })

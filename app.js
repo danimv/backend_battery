@@ -47,7 +47,7 @@ app.get('/hola', async function (req, res) {
     res.send("Hola");
 });
 
-app.get('/config', async function (req, res, next) {
+app.get('/configuracio', async function (req, res, next) {
     const dataToSend = await configController.view();
     res.json(dataToSend);
 });
