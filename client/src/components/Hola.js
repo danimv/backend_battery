@@ -6,7 +6,7 @@ const Hola = () => {
     const [data, setData] = useState(null);
     useEffect(() => {
         // Make the request to the server when the component mounts
-        api.get('/config')
+        api.get('/hola')
             .then(response => {
                 setData(response.data);
             })
