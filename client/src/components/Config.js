@@ -16,7 +16,7 @@ const BatteryConfig = () => {
         // Make the request to the server when the component mounts
         api.get('/configuracio')
             .then(response => {
-                setData(response.data.rows);
+                response.data !== null && setData(response.data.rows);
             })
             .catch(error => {
                 console.error('Error fetching data:', error);
@@ -54,14 +54,16 @@ const BatteryConfig = () => {
     };
 
     return (
-        <div>
+        <div>            
             <div style={{ marginTop: '1%', marginBottom: '1%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', textAlign: 'left' }}>
                 <div style={{ fontSize: '120%', textAlign: 'center', color: 'rgb(9, 120, 231)', marginLeft: '20%', paddingTop: '1%', paddingBottom: '1%', display: 'inline-block' }}>
                     {/* <img src="imatges/battery.png" width="55" height="50" alt="Prosum" /> */}
                     <b>Curva consum comunitat</b>
                 </div>
-                {data !== null ? (
+                <p>Adeu... {data}</p>
+                {(data !== null) && Array.isArray(data) ? (
                     <div style={{ marginRight: '20%', textAlign: 'center', display: 'inline-block' }}>
+                        <p>Adeu... {data}</p>
                         <table style={{ fontSize: '95%', backgroundColor: '#f7f7f7', borderRadius: '15px', textAlign: 'center' }}>
                             <thead>
                                 <tr style={{ color: 'rgb(9, 120, 231)', textAlign: 'center' }}>
@@ -111,7 +113,7 @@ const BatteryConfig = () => {
                 )}
             </div>
             <div className="table-responsive">
-                {data !== null ? (
+                {data !== null && Array.isArray(data) ?  (
                     <table id="tableF" className="table table-bordered" style={{ fontSize: '90%' }}>
                         <thead className="thead-dark">
                             <tr>

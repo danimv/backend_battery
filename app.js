@@ -18,6 +18,7 @@ app.use(express.urlencoded({ extended: true })); // New
 // app.use(bodyParser.json());
 app.use(express.json());
 app.use((cors()));
+// app.use('/configuracio', createProxyMiddleware({ target: 'http://localhost:5032', changeOrigin: true }));
 
 
 // Templating Engine
@@ -50,7 +51,8 @@ app.get('/hola', async function (req, res) {
 app.get('/configuracio', async function (req, res, next) {
     const dataToSend = await configController.view();
     console.log(dataToSend);
-    res.json(dataToSend);
+    // res.json(dataToSend);
+    res.send("Adeu");
 });
 
 // Static Files
