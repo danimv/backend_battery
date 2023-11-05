@@ -52,8 +52,8 @@ app.get('/configuracio', async function (req, res) {
     try {
         const dataToSend = await configController.view();
         // console.log("adeuu");
-        res.json("adeuuuu2");
-        // res.json(dataToSend);
+        // res.json("adeuuuu2");
+        res.json(dataToSend);
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal Server Error' });
