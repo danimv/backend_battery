@@ -4,7 +4,9 @@ sudo mkdir app_react
 
 sudo git clone https://github.com/danimv/backend_battery.git
 
-sudo git pull origin main
+sudo git remote add origin https://github.com/danimv/backend_battery.git
+
+sudo git pull origin master
 
 sudo chmod +x install_servers_Linux.sh
 
