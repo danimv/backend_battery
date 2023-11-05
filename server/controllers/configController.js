@@ -12,16 +12,16 @@ exports.view = (req, res) => {
       // if (!error) {
         console.log("inside1");
         // Sqlite connexió 
-        conn.all('SELECT curvaHores.*,bateriaConfig.consumKw, bateriaConfig.bateriaKw FROM curvaHores JOIN bateriaConfig ORDER BY curvaHores.idHora ASC', (err, rows) => {
-          if (!err && rows[0]) {    
-            console.log("inside2");        
-            // console.log(data);
-            resolve(rows[0]);
-          } else {
-            console.log(err);
-          }
-        });
-        // resolve(getDateTime());
+        // conn.all('SELECT curvaHores.*,bateriaConfig.consumKw, bateriaConfig.bateriaKw FROM curvaHores JOIN bateriaConfig ORDER BY curvaHores.idHora ASC', (err, rows) => {
+        //   if (!err && rows[0]) {    
+        //     console.log("inside2");        
+        //     // console.log(data);
+        //     resolve(rows[0]);
+        //   } else {
+        //     console.log(err);
+        //   }
+        // });
+        resolve(getDateTime());
       // } else {
       //   console.log(err);
       // }
