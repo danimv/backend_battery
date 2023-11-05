@@ -17,7 +17,7 @@ const BatteryConfig = () => {
         api.get('/configuracio')
             .then(response => {
                 // console.log(response.data);
-                response.data !== null && setData(response.data.rows);
+                // response.data !== null && setData(response.data.rows);
             })
             .catch(error => {
                 console.error('Error getting data from nodejs server:', error);
