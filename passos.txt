@@ -14,7 +14,24 @@ sudo chmod +x install_servers_Linux.sh
 
 ./install_servers_Linux.sh  // Pot tardar 10 minuts
 
+mkdir /var/www/html/client
+cp -r build/* /var/www/netflix/client
 sudo nano /etc/nginx/nginx.conf
+sudo nano /etc/nginx/sites-available/default
+
+server {
+
+        listen 5000;
+        server_name localhost;
+        root /var/www/html/client;
+        index index.html index.htm index.nginx-debian.html;
+        server_name _;
+        location / {
+                # First attempt to serve request as file, then
+                # as directory, then fall back to displaying a 404.
+                try_files $uri $uri/ /index.html;
+        }
+
 
  server {
         listen       5000;
@@ -22,14 +39,22 @@ sudo nano /etc/nginx/nginx.conf
 
 	     location / {
     	     root   C:\Users\danim\Downloads\backend_battery\client\build;
+             root 
     	     index  index.html;
 	     try_files $uri $uri/ /index.html;
     	 }
      }
 
-sudo systemctl reload nginx
+sudo chmod 777 /home/dani/Escritorio/backend_battery/client/build
 
 sudo chmod 777 backend_battery
 
+sudo systemctl reload nginx
 sudo chmod +x start_servers_Linux.sh
 ./start_servers_Linux.sh
+
+sudo pm2 start /home/dani/Escritorio/backend_battery/app.js
+
+sudo pm2 startup
+
+sudo nano /var/log/nginx/access.log // error.log

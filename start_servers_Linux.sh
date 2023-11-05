@@ -40,6 +40,7 @@ echo "Nodejs started"
 # npm start
 sudo systemctl start nginx
 sudo systemctl enable nginx
+
 # http-server -p 5090 -c-1 build
 # serve -s build
 # echo "HTTP server started on localhost"
