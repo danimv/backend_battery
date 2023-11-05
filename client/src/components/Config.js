@@ -6,22 +6,22 @@ const BatteryConfig = ({ rows }) => {
     const [editModeTable1, setEditMode1] = useState(null);
     const [editModeTable2, setEditMode2] = useState(null);
 
-    // fetch('/config')
-    //     .then(response => response.json())
-    //     .then(data => {
-    //         setData(data.data.rows);
-    //     });
+    fetch('/config')
+        .then(response => response.json())
+        .then(data => {
+            setData(data.data.rows);
+        });
 
-    useEffect(() => {
-        // Make the request to the server when the component mounts
-        api.get('/config')
-            .then(response => {
-                setData(response.data.rows);
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-            });
-    }, []);
+    // useEffect(() => {
+    //     // Make the request to the server when the component mounts
+    //     api.get('/config')
+    //         .then(response => {
+    //             setData(response.data.rows);
+    //         })
+    //         .catch(error => {
+    //             console.error('Error fetching data:', error);
+    //         });
+    // }, []);
 
     const handleInputChange = (e, rowIndex, colIndex, copy) => {
         const newValue = e.target.value;

@@ -42,19 +42,18 @@ app.get('/bateria', async function (req, res) {
     res.json(dataToSend);
 });
 
-
 app.get('/hola', async function (req, res) {
     console.log("Hola");
     res.send("Hola");
 });
 
-// Static Files
-app.use(express.static(path.join(__dirname, 'client/build')));
-
 app.get('/config', async function (req, res, next) {
     const dataToSend = await configController.view();
     res.json(dataToSend);
 });
+
+// Static Files
+app.use(express.static(path.join(__dirname, 'client/build')));
 
 app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, 'client/build/index.html'));
