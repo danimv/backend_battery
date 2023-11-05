@@ -14,8 +14,9 @@ sudo chmod +x install_servers_Linux.sh
 
 ./install_servers_Linux.sh  // Pot tardar 6 minuts
 
-mkdir /var/www/html/client
-cp -r build/* /var/www/html/client
+sudo rm -R /var/www/html/client
+sudo mkdir /var/www/html/client
+sudo cp -r build/* /var/www/html/client
 sudo nano /etc/nginx/nginx.conf
 sudo nano /etc/nginx/sites-available/default
 

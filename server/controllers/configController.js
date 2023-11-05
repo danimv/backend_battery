@@ -11,15 +11,16 @@ exports.view = (req, res) => {
     checkFileExists(location, function check(error) {
       if (!error) {
         // Sqlite connexió 
-        conn.all('SELECT curvaHores.*,bateriaConfig.consumKw, bateriaConfig.bateriaKw FROM curvaHores JOIN bateriaConfig ORDER BY curvaHores.idHora ASC', (err, rows) => {
-          if (!err && rows[0]) {
-            const data = { rows };
-            // console.log(data);
-            resolve(data);
-          } else {
-            console.log(err);
-          }
-        });
+        // conn.all('SELECT curvaHores.*,bateriaConfig.consumKw, bateriaConfig.bateriaKw FROM curvaHores JOIN bateriaConfig ORDER BY curvaHores.idHora ASC', (err, rows) => {
+        //   if (!err && rows[0]) {
+        //     const data = { rows };
+        //     // console.log(data);
+        //     resolve(data);
+        //   } else {
+        //     console.log(err);
+        //   }
+        // });
+        resolve("dins");
       } else {
         console.log(err);
       }
