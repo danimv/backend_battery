@@ -12,7 +12,7 @@ sudo git pull origin master
 cd /home/dani/Escritorio/backend_battery
 sudo chmod +x install_servers_Linux.sh
 
-./install_servers_Linux.sh  // Pot tardar 10 minuts
+./install_servers_Linux.sh  // Pot tardar 6 minuts
 
 mkdir /var/www/html/client
 cp -r build/* /var/www/html/client
