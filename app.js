@@ -45,14 +45,15 @@ app.get('/bateria', async function (req, res) {
 
 app.get('/hola', async function (req, res) {
     // console.log("Hola");
-    res.send("Hola");
+    res.send("HHHolaaa");
 });
 
 app.get('/configuracio', async function (req, res) {
     try {
-        const dataToSend = await configController.view();
+        // const dataToSend = await configController.view();
         // console.log("adeuu");
-        res.json(dataToSend);
+        res.json("adeuuuu");
+        // res.json(dataToSend);
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal Server Error' });

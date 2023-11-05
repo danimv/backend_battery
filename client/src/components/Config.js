@@ -20,7 +20,7 @@ const BatteryConfig = () => {
                 response.data !== null && setData(response.data.rows);
             })
             .catch(error => {
-                console.error('Error fetching data:', error);
+                console.error('Error getting data from nodejs server:', error);
             });
     }, []);
 
