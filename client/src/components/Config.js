@@ -16,7 +16,8 @@ const BatteryConfig = () => {
         // Make the request to the server when the component mounts
         api.get('/configuracio')
             .then(response => {
-                response.data.rows !== null && setData(response.data.rows);
+                console.log(response.data);
+                response.data !== null && setData(response.data.rows);
             })
             .catch(error => {
                 console.error('Error fetching data:', error);
@@ -60,7 +61,7 @@ const BatteryConfig = () => {
                     {/* <img src="imatges/battery.png" width="55" height="50" alt="Prosum" /> */}
                     <b>Curva consum comunitat</b>
                 </div>
-                <p>Eii</p>
+                <p>Eiiiiojoj</p>
                 {(data !== null) && Array.isArray(data) ? (
                     <div style={{ marginRight: '20%', textAlign: 'center', display: 'inline-block' }}>   
                                          
