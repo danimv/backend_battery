@@ -49,10 +49,14 @@ app.get('/hola', async function (req, res) {
 });
 
 app.get('/configuracio', async function (req, res) {
-    const dataToSend = await configController.view();
-    // console.log("adeuu");
-    res.json(dataToSend);
-    // res.send("Adeuu");
+    try {
+        const dataToSend = await configController.view();
+        // console.log("adeuu");
+        res.json(dataToSend);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
 });
 
 // Static Files
