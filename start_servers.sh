@@ -38,8 +38,6 @@ cd ../backend_battery/client
 
 # Start the React frontend server
 npm start
-sudo systemctl start nginx
-sudo systemctl enable nginx
 # http-server -p 5090 -c-1 build
 # serve -s build
 # echo "HTTP server started on localhost"

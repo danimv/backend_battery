@@ -8,6 +8,7 @@ sudo git remote add origin https://github.com/danimv/backend_battery.git
 
 sudo git pull origin master
 
+cd backend_battery
 sudo chmod +x install_servers_Linux.sh
 
 ./install_servers_Linux.sh

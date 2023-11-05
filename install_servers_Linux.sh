@@ -1,16 +1,17 @@
 #!/bin/bash
 set -x
+
+sudo apt-get update
+sudo apt install nodejs npm
 # Navigate to the Node.js backend directory
 cd ../backend_battery
 
 # Start the Node.js backend server
 npm install
 # npm start &
-
 # Open a new terminal window and navigate to the React frontend directory
 # gnome-terminal --working-directory=/client -e "npm start"
-sudo apt-get update
-sudo apt install nodejs npm
+
 cd ../backend_battery/client
 
 # Start the React frontend server
