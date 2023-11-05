@@ -37,8 +37,9 @@ echo "Nodejs started"
 cd ../backend_battery/client
 
 # Start the React frontend server
-# http-server -p 5090 -c-1 build -a build
-serve -s build
+npm start
+# http-server -p 5090 -c-1 build
+# serve -s build
 # echo "HTTP server started on localhost"
 # start cmd /k cd /d /client && npm start
 
