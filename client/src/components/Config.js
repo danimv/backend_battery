@@ -71,7 +71,7 @@ const BatteryConfig = () => {
                             </thead>
                             <tbody style={{ color: 'rgb(9, 120, 231)' }}>
                                 {data.map((row, rowIndex) => (
-                                    <tr style={{ textAlign: 'center' }} key={row.id}>
+                                    <tr style={{ textAlign: 'center' }} key={row.idHora}>
                                         {Object.keys(row).map((col, colIndex) => {
                                             if (rowIndex === 0 && (col === 'consumKw' || col === 'bateriaKw')) { // Check for first row and columns 8 and 9
                                                 return (
@@ -125,9 +125,9 @@ const BatteryConfig = () => {
                         </thead>
                         <tbody>
                             {data.map((row, rowIndex) => (
-                                <tr key={row.id}>
+                                <tr key={row.idHora}>
                                     {Object.keys(row).map((col, colIndex) => {
-                                        if (colIndex > 0 && colIndex < Object.keys(row).length - 2) {
+                                        if (colIndex > 0 && colIndex < Object.keys(row).length - 3) {
                                             return (
                                                 <td key={colIndex}>
                                                     {editModeTable1 === rowIndex && col !== 'hora' ? (
