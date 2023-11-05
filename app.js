@@ -50,10 +50,13 @@ app.get('/hola', async function (req, res) {
 
 app.get('/configuracio', async function (req, res) {
     try {
-        const dataToSend =  configController.view();
-        
+        configController.view()
+            .then(response => {
+                // console.log(response.data);
+                res.json(response);
+            })
         // res.json("adeuuuu2");
-        res.json(dataToSend);
+
         // console.log(dataToSend);
     } catch (error) {
         console.error(error);
