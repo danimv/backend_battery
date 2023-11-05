@@ -53,13 +53,7 @@ app.get('/hola', async function (req, res) {
 
 app.get('/configuracio', function (req, res) {
     conn.all('SELECT * FROM curvaHores ORDER BY curvaHores.idHora ASC', (err, rows) => {
-        if (!err && rows[0]) {
-            // console.log("inside2");        
-            // console.log(data);
-            res.json(rows);
-        } else {
-            console.log(err);
-        }
+        res.json(rows);
     });
 });
 
