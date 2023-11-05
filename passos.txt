@@ -1,0 +1,9 @@
+sudo apt install git
+
+sudo mkdir app_react
+
+sudo git clone https://github.com/danimv/backend_battery.git
+
+sudo chmod +x install_servers_Linux.sh
+
+./install_servers_Linux.sh
