@@ -12,18 +12,21 @@ sudo git pull origin master
 cd backend_battery
 sudo chmod +x install_servers_Linux.sh
 
-./install_servers_Linux.sh
+./install_servers_Linux.sh  // Pot tardar 10 minuts
 
 sudo nano /etc/nginx/nginx.conf
 
-server {
-    listen 80;
-    server_name localhost; # Replace with your domain or IP address
+ server {
+        listen       5000;
+        server_name  localhost;
 
-    location / {
-        root /path/to/your/react/app/build; # Replace with the actual path to your React app build folder
-        try_files $uri $uri/ /index.html;
-    }
-}
+	     location / {
+    	     root   C:\Users\danim\Downloads\backend_battery\client\build;
+    	     index  index.html;
+	     try_files $uri $uri/ /index.html;
+    	 }
+     }
 
 sudo systemctl reload nginx
+
+./start_servers_Linux

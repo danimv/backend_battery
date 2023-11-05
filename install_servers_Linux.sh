@@ -21,6 +21,8 @@ sudo npm run build
 # npm install -g http-server
 sudo apt install nginx
 
+sudo chmod +x start_servers_Linux.sh
+
 echo "All installed"
 # cd ../client/build
 # http-server -p 8080
