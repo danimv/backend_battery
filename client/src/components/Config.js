@@ -60,10 +60,8 @@ const BatteryConfig = () => {
                     {/* <img src="imatges/battery.png" width="55" height="50" alt="Prosum" /> */}
                     <b>Curva consum comunitat</b>
                 </div>
-                <p>Adeu... {data}</p>
                 {(data !== null) && Array.isArray(data) ? (
-                    <div style={{ marginRight: '20%', textAlign: 'center', display: 'inline-block' }}>
-                        <p>Adeu... {data}</p>
+                    <div style={{ marginRight: '20%', textAlign: 'center', display: 'inline-block' }}>                        
                         <table style={{ fontSize: '95%', backgroundColor: '#f7f7f7', borderRadius: '15px', textAlign: 'center' }}>
                             <thead>
                                 <tr style={{ color: 'rgb(9, 120, 231)', textAlign: 'center' }}>
